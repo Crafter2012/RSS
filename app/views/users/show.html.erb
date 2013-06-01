@@ -1,5 +1,14 @@
-<p id="notice"><%= notice %></p>
-
+<% provide(:title, @user.name) %>
+<h1><%= @user.name %></h1>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
 <p>
   <b>Name:</b>
   <%= @user.name %>
@@ -10,10 +19,6 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

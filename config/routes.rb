@@ -1,4 +1,10 @@
 RSS::Application.routes.draw do
+  root :to => 'basic_pages#home'
+  match '/signup_path',  to: 'users#new'
+  match '/help_path',    to: 'basic_pages#help'
+  match '/about_path',   to: 'basic_pages#about'
+  match '/contact_path', to: 'basic_pages#contact'
+
   resources :users
 
 
