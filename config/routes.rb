@@ -1,12 +1,15 @@
 RSS::Application.routes.draw do
   root :to => 'basic_pages#home'
-  match '/signup_path',  to: 'users#new'
-  match '/help_path',    to: 'basic_pages#help'
-  match '/about_path',   to: 'basic_pages#about'
-  match '/contact_path', to: 'basic_pages#contact'
-
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  match '/help',    to: 'basic_pages#help'
+  match '/about',   to: 'basic_pages#about'
+  match '/contact', to: 'basic_pages#contact'
 
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

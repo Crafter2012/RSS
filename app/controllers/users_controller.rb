@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  before_filter :signed_in_user, only: [:edit, :update]
+  before_filter :correct_user,   only: [:edit, :update]
+  before_filter :admin_user,     only: :destroy
+  
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,7 +38,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id]) # не нужно так как есть предфильтр
   end
 
   # POST /users
@@ -44,6 +48,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+	    sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -56,10 +61,11 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id]) # не нужно так как есть предфильтр
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+	    sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -72,12 +78,28 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User destroyed."
+    #redirect_to users_url
 
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end
+  private
+
+    def signed_in_user
+	  store_location
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+	
+	def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
+    end
+	
+	def admin_user
+      redirect_to(root_path) unless current_user.admin?
+    end
 end

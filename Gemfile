@@ -5,6 +5,9 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'faker'
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -28,6 +31,7 @@ end
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '4.1.0'
+  gem 'database_cleaner'
 end
 
 group :production do
