@@ -1,4 +1,14 @@
 RSS::Application.routes.draw do
+  get "basic_rss_feed/new"
+
+  get "basic_rss_feed/create"
+
+  get "basic_rss_feed/update"
+
+  get "basic_rss_feed/delete"
+  
+  match '/basic_rss_feeds', to: 'basic_rss_feed#show'
+
   root :to => 'basic_pages#home'
   resources :users
   resources :sessions, only: [:new, :create, :destroy]

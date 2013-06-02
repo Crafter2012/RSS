@@ -11,7 +11,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601144337) do
+ActiveRecord::Schema.define(:version => 20130602104806) do
+
+  create_table "basic_rss_feeds", :force => true do |t|
+    t.string   "name"
+    t.string   "site_link"
+    t.string   "feed_link"
+    t.string   "site_logo_link"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "basic_rss_feeds", ["feed_link"], :name => "index_basic_rss_feeds_on_feed_link"
+
+  create_table "user_rss_feeds", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "rss_feed_id"
+    t.time     "last_update"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "user_rss_feeds", ["rss_feed_id"], :name => "index_user_rss_feeds_on_rss_feed_id"
+  add_index "user_rss_feeds", ["user_id", "rss_feed_id"], :name => "index_user_rss_feeds_on_user_id_and_rss_feed_id", :unique => true
+  add_index "user_rss_feeds", ["user_id"], :name => "index_user_rss_feeds_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

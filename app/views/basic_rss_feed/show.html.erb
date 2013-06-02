@@ -1,0 +1,15 @@
+﻿
+<div class="row">
+  
+  <aside>
+    
+  </aside>
+  <div class="span8">
+    <% if @BasicRssFeeds.any? %>
+      <h3>Образцы новостных лент (<%= @BasicRssFeeds.count %>)</h3>
+      <ol class="RssFeed">
+        <%= render :partial => "basicrssfeed" , :collection => @BasicRssFeeds %>
+      </ol>
+    <% end %>
+  </div>
+</div>
