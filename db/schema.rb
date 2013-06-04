@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602104806) do
+ActiveRecord::Schema.define(:version => 20130604021331) do
 
   create_table "basic_rss_feeds", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(:version => 20130602104806) do
   end
 
   add_index "basic_rss_feeds", ["feed_link"], :name => "index_basic_rss_feeds_on_feed_link"
+
+  create_table "rss_feed_news", :force => true do |t|
+    t.integer  "rss_feed_id"
+    t.string   "title"
+    t.string   "url"
+    t.string   "author"
+    t.text     "content"
+    t.datetime "published"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "summary"
+  end
+
+  create_table "user_feed_news", :force => true do |t|
+    t.integer  "user_feed_id"
+    t.integer  "news_id"
+    t.boolean  "readed"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "user_feed_news", ["news_id"], :name => "index_user_feed_news_on_news_id"
+  add_index "user_feed_news", ["user_feed_id", "news_id"], :name => "index_user_feed_news_on_user_feed_id_and_news_id", :unique => true
+  add_index "user_feed_news", ["user_feed_id"], :name => "index_user_feed_news_on_user_feed_id"
 
   create_table "user_rss_feeds", :force => true do |t|
     t.integer  "user_id"

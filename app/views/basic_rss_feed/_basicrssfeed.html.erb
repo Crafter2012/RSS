@@ -1,6 +1,12 @@
 ﻿<li>
   <span class="content"><img src= "<%= basicrssfeed.site_logo_link %>"> 
-  Название ленты: <%= basicrssfeed.name %>
+  Название ленты: <%= link_to basicrssfeed.name, feed_url(basicrssfeed.id) %>
   <br>
-  Ссылка на сайт: <a href ="<%= basicrssfeed.site_link %>"><%= basicrssfeed.site_link %></a></span>
+  Ссылка на сайт: <a href ="<%= basicrssfeed.site_link %>"><%= basicrssfeed.site_link %></a>
+  <div>
+  <% if current_user.admin?  %>
+    <%= link_to "Удалить ленту", feed_delete_url(basicrssfeed.id), method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+  </div>
+  </span>
 </li>

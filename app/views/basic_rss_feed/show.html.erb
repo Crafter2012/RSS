@@ -1,4 +1,4 @@
-﻿
+﻿<% provide(:title, "Каталог новостных лент") %>
 <div class="row">
   
   <aside>
@@ -6,7 +6,8 @@
   </aside>
   <div class="span8">
     <% if @BasicRssFeeds.any? %>
-      <h3>Образцы новостных лент (<%= @BasicRssFeeds.count %>)</h3>
+      <h3>Каталог новостных лент</h3>
+	  <h2><%= link_to "Добавить ленту", new_feed_path %></h2>
       <ol class="RssFeed">
         <%= render :partial => "basicrssfeed" , :collection => @BasicRssFeeds %>
       </ol>

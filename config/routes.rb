@@ -1,13 +1,13 @@
 RSS::Application.routes.draw do
-  get "basic_rss_feed/new"
-
-  get "basic_rss_feed/create"
-
-  get "basic_rss_feed/update"
-
-  get "basic_rss_feed/delete"
   
-  match '/basic_rss_feeds', to: 'basic_rss_feed#show'
+  
+  get "basic_rss_feed/update"
+  #resources :basic_rss_feed, only: [:new, :create, :show, :show_feed_news]
+  match '/new_feed', to: 'basic_rss_feed#new', :as => :new_feed
+  match '/create_feed', to: 'basic_rss_feed#create'
+  match '/catalog', to: 'basic_rss_feed#show'
+  match '/feed/:id', to: 'basic_rss_feed#show_feed_news', :as => :feed
+  match '/feed_delete/:id', to: 'basic_rss_feed#delete', :as => :feed_delete
 
   root :to => 'basic_pages#home'
   resources :users

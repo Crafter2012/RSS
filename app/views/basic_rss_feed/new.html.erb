@@ -1,2 +1,14 @@
-<h1>BasicRssFeed#new</h1>
-<p>Find me in app/views/basic_rss_feed/new.html.erb</p>
+﻿<% provide(:title, "New Feed") %>
+<h1>Добавьте новую ленту</h1>
+<div class="row">
+  <div class="span6 offset3">
+    
+	<%= form_for(:BasicRssFeeds, :url =>{ :action => :create}) do |f| %>
+	  <%= render 'shared/feed_error_messages' %>
+      <%= f.label "Ссылка на ленту:" %>
+      <%= f.text_field :feed_link %>
+
+      <%= f.submit "Добавить", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

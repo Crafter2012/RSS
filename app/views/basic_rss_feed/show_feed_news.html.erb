@@ -1,0 +1,11 @@
+﻿<% provide(:title, @Feed.name) %>
+<h3><%= @Feed.name %></h3>
+<h4><%= @Feed.site_link %></h4>
+<div class="row">
+  <div class="span6 offset3">
+	<ol class="entrys">
+			<% news = @Feed.rss_feed_news %>
+			<%= render news %>
+	</ol>
+  </div>
+</div>
